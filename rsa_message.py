@@ -82,31 +82,38 @@ def run_decrypt():
     print("Decrypted Message:", decrypted_message)
 
 if __name__ == "__main__":
-    print("1. Encrypt Message\n2. Decrypt Message\n3. Generate Key Pair\n")
-    operation = input("Enter the operation(1/2/3): ")
     
-    if operation == '1':
-        run_encrypt()
-    elif operation == '2':
-        run_decrypt()
-    elif operation == '3':
-        private_key, public_key = generate_key_pair()
-        # open dialogue to select folder to save keys
-        from tkinter import Tk
-        from tkinter.filedialog import askdirectory
-        Tk().withdraw()
-        folder = askdirectory(title="Select a folder to save keys")
-        with open(folder + "/private_key.pem", "wb") as f:
-            f.write(private_key.private_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.TraditionalOpenSSL,
-                encryption_algorithm=serialization.NoEncryption()
-            ))
-        with open(folder + "/public_key.pem", "wb") as f:
-            f.write(public_key.public_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PublicFormat.SubjectPublicKeyInfo
-            ))
+    while True:
+    
+        print("1. Encrypt Message\n2. Decrypt Message\n3. Generate Key Pair\n4. Exit")
+        operation = input("Enter the operation(1/2/3): ")
+        
+        if operation == '1':
+            run_encrypt()
+        elif operation == '2':
+            run_decrypt()
+        elif operation == '3':
+            private_key, public_key = generate_key_pair()
+            # open dialogue to select folder to save keys
+            from tkinter import Tk
+            from tkinter.filedialog import askdirectory
+            Tk().withdraw()
+            folder = askdirectory(title="Select a folder to save keys")
+            with open(folder + "/private_key.pem", "wb") as f:
+                f.write(private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.TraditionalOpenSSL,
+                    encryption_algorithm=serialization.NoEncryption()
+                ))
+            with open(folder + "/public_key.pem", "wb") as f:
+                f.write(public_key.public_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PublicFormat.SubjectPublicKeyInfo
+                ))
+                
+        elif operation == '4':
+            break
+        else:
+            print("Invalid operation!")
             
-    # wait for user to press enter
-    input("Press Enter to exit...")
+        print("\n\n")
