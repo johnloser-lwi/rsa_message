@@ -14,27 +14,34 @@ def generate_key_pair():
     return private_key, private_key.public_key()
 
 def encrypt_message(public_key, message):
-    message_bytes = message.encode('utf-8')
-    ciphertext = public_key.encrypt(
-        message_bytes,
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA1()),
-            algorithm=hashes.SHA1(),
-            label=None
+    try:
+        
+        message_bytes = message.encode('utf-8')
+        ciphertext = public_key.encrypt(
+            message_bytes,
+            padding.OAEP(
+                mgf=padding.MGF1(algorithm=hashes.SHA1()),
+                algorithm=hashes.SHA1(),
+                label=None
+            )
         )
-    )
-    return ciphertext
+        return ciphertext
+    except:
+        return "Failed to encrypt message!"
 
 def decrypt_message(private_key, ciphertext):
-    plaintext = private_key.decrypt(
-        ciphertext,
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA1()),
-            algorithm=hashes.SHA1(),
-            label=None
+    try:
+        plaintext = private_key.decrypt(
+            ciphertext,
+            padding.OAEP(
+                mgf=padding.MGF1(algorithm=hashes.SHA1()),
+                algorithm=hashes.SHA1(),
+                label=None
+            )
         )
-    )
-    return plaintext.decode('utf-8')
+        return plaintext.decode('utf-8')
+    except:
+        return "Invalid message!"
 
 def run_encrypt():
     # open file dialoge to load public key
