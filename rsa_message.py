@@ -50,11 +50,15 @@ def run_encrypt():
     from tkinter.filedialog import askopenfilename
     Tk().withdraw()
     filename = askopenfilename(title="Select a Public Key File", filetypes=[("Public Key Files", "*.pem")])
-    with open(filename, "rb") as f:
-            public_key = serialization.load_pem_public_key(
-                f.read(),
-                backend=default_backend()
-            )
+    try:
+        with open(filename, "rb") as f:
+                public_key = serialization.load_pem_public_key(
+                    f.read(),
+                    backend=default_backend()
+                )
+    except:
+        print("Invalid key file!")
+        return
     msg = input("Enter the message: ")
     encrypted_message = encrypt_message(public_key, msg)
     print("Encrypted Message:", base64.b64encode(encrypted_message).decode('utf-8'))
@@ -70,13 +74,16 @@ def run_decrypt():
     from tkinter.filedialog import askopenfilename
     Tk().withdraw()
     filename = askopenfilename(title="Select a Private Key File", filetypes=[("Private Key Files", "*.pem")])
-    with open(filename, "rb") as f:
-            private_key = serialization.load_pem_private_key(
-                f.read(),
-                password=None,
-                backend=default_backend()
-            )
-    
+    try:
+        with open(filename, "rb") as f:
+                private_key = serialization.load_pem_private_key(
+                    f.read(),
+                    password=None,
+                    backend=default_backend()
+                )
+    except:
+        print("Invalid key file!")
+        return    
     msg = input("Enter the message: ")
     decrypted_message = decrypt_message(private_key, base64.b64decode(msg))
     print("Decrypted Message:", decrypted_message)
