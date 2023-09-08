@@ -86,7 +86,7 @@ if __name__ == "__main__":
     while True:
     
         print("1. Encrypt Message\n2. Decrypt Message\n3. Generate Key Pair\n4. Exit")
-        operation = input("Enter the operation(1/2/3): ")
+        operation = input("Enter the operation(1/2/3/4): ")
         
         if operation == '1':
             run_encrypt()
