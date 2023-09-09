@@ -155,7 +155,9 @@ class RSA_GUI:
     def run_encrypt(self):
         print("Running encryption...")
         # Implement your encryption code here
-        res = self.app.run_encrypt(self.message_input.get())
+        # get message from input
+        msg = self.message_input.get("1.0", tk.END)
+        res = self.app.run_encrypt(msg)
         # set message output text
         if res != "" : 
             self.message_output.delete("1.0", tk.END)
