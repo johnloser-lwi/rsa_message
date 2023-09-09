@@ -131,8 +131,8 @@ class RSA_GUI:
         self.root.title("RSA Messenger")
         self.app = rsa_message()
         
-        self.message_input = tk.Entry(root, width=50, text="Enter the message")
-        self.message_output = tk.Label(root, width=50, text="Encrypted/Decrypted Message")
+        self.message_input = tk.Text(root, width=50, wrap=tk.WORD, height=5)
+        self.message_output = tk.Label(root, width=50, text="Encrypted/Decrypted Message", wraplength=300, justify="left")
         
         # Create buttons for each operation
         encrypt_button = tk.Button(root, text="Encrypt Message", command=self.run_encrypt)
