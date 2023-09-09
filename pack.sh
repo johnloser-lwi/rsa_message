@@ -1,0 +1,1 @@
+pyinstaller -F rsa_message.py --clean --onefile
