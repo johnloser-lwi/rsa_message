@@ -132,7 +132,7 @@ class RSA_GUI:
         self.app = rsa_message()
         
         self.message_input = tk.Text(root, width=50, wrap=tk.WORD, height=5)
-        self.message_output = tk.Label(root, width=50, text="Encrypted/Decrypted Message", wraplength=300, justify="left")
+        self.message_output = tk.Text(root, width=50, wrap=tk.WORD, height=5)
         
         # Create buttons for each operation
         encrypt_button = tk.Button(root, text="Encrypt Message", command=self.run_encrypt)
@@ -157,8 +157,12 @@ class RSA_GUI:
         # Implement your encryption code here
         res = self.app.run_encrypt(self.message_input.get())
         # set message output text
-        if res != "" : self.message_output["text"] = "Copied to clipboard!"
-        else : self.message_output["text"] = "Failed to encrypt message!"
+        if res != "" : 
+            self.message_output.delete("1.0", tk.END)
+            self.message_output.insert(tk.END, "Copied to clipboard!")
+        else : 
+            self.message_output.delete("1.0", tk.END)
+            self.message_output.insert(tk.END, "Failed to encrypt message!")
     
     def run_decrypt(self):
         print("Running decryption...")
@@ -166,8 +170,12 @@ class RSA_GUI:
         # get message from clipboard
         msg = pyperclip.paste()
         res = self.app.run_decrypt(msg)
-        if res != "" : self.message_output["text"] = res
-        else : self.message_output["text"] = "Failed to decrypt message!"
+        if res != "" : 
+            self.message_output.delete("1.0", tk.END)
+            self.message_output.insert(tk.END, res)
+        else : 
+            self.message_output.delete("1.0", tk.END)
+            self.message_output.insert(tk.END, "Failed to encrypt message!")
     
     def run_generate_key_pair(self):
         print("Running key pair generation...")
