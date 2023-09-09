@@ -3,6 +3,10 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
+
+from tkinter import Tk
+from tkinter.filedialog import askdirectory
+
 import base64
 
 def generate_key_pair():
@@ -46,8 +50,6 @@ def decrypt_message(private_key, ciphertext):
 def run_encrypt():
     # open file dialoge to load public key
     public_key = None
-    from tkinter import Tk
-    from tkinter.filedialog import askopenfilename
     Tk().withdraw()
     filename = askopenfilename(title="Select a Public Key File", filetypes=[("Public Key Files", "*.pem")])
     try:
@@ -70,8 +72,6 @@ def run_encrypt():
 def run_decrypt():
     # open file dialoge to load public key
     private_key = None
-    from tkinter import Tk
-    from tkinter.filedialog import askopenfilename
     Tk().withdraw()
     filename = askopenfilename(title="Select a Private Key File", filetypes=[("Private Key Files", "*.pem")])
     try:
@@ -102,8 +102,7 @@ if __name__ == "__main__":
         elif operation == '3':
             private_key, public_key = generate_key_pair()
             # open dialogue to select folder to save keys
-            from tkinter import Tk
-            from tkinter.filedialog import askdirectory
+            
             Tk().withdraw()
             folder = askdirectory(title="Select a folder to save keys")
             with open(folder + "/private_key.pem", "wb") as f:
