@@ -131,8 +131,8 @@ class RSA_GUI:
         self.root.title("RSA Messenger")
         self.app = rsa_message()
         
-        self.message_input = tk.Text(root, width=50, wrap=tk.WORD, height=5)
-        self.message_output = tk.Text(root, width=50, wrap=tk.WORD, height=5)
+        self.message_input = tk.Entry(root, width=60, validate="key", validatecommand=(root.register(self.validate_input), '%P'))
+        self.message_output = tk.Text(root, width=50, wrap=tk.WORD, height=2)
         
         # Create buttons for each operation
         encrypt_button = tk.Button(root, text="Encrypt Message", command=self.run_encrypt)
@@ -142,21 +142,33 @@ class RSA_GUI:
         exit_button = tk.Button(root, text="Exit", command=root.quit)
         
         # Arrange buttons in a grid
-        self.message_input.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        self.message_input.grid(row=1, column=0, columnspan=2, pady=10)
         encrypt_button.grid(row=1, column=3, pady=10, padx=10)
         
-        self.message_output.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+        self.message_output.grid(row=2, column=0, columnspan=2, padx=20, pady=10)
         decrypt_button.grid(row=2, column=3, pady=10, padx=10)
         
         generate_key_button.grid(row=3, column=0, pady=10)
         reset_button.grid(row=3, column=1, pady=10)
         #exit_button.grid(row=4, column=0, pady=10)
     
+    def validate_input(self, P):
+        # Ensure the input does not exceed 86 characters
+        
+        # chinese characters are 3 bytes long
+        l = 0
+        for c in P:
+            if ord(c) > 255 : l += 3
+            else : l += 1
+        
+        return l <= 86
+    
     def run_encrypt(self):
         print("Running encryption...")
         # Implement your encryption code here
         # get message from input
-        msg = self.message_input.get("1.0", tk.END)
+        msg = self.message_input.get()
+        
         res = self.app.run_encrypt(msg)
         # set message output text
         if res != "" : 
