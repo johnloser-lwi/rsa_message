@@ -202,28 +202,6 @@ class RSA_GUI:
         self.app.reset_key_file_selections()
 
 if __name__ == "__main__":
-    
-    app = rsa_message()
-    
-    # while True:
-    
-    #     print("1. Encrypt Message\n2. Decrypt Message\n3. Generate Key Pair\n4. Reset Key Selections\n5. Exit")
-    #     operation = input("Enter the operation(1/2/3/4/5): ")
-        
-    #     if operation == '1':
-    #         app.run_encrypt()
-    #     elif operation == '2':
-    #         app.run_decrypt()
-    #     elif operation == '3':
-    #         app.run_generate_key_pair()
-    #     elif operation == '4':
-    #         app.reset_key_file_selections()
-    #     elif operation == '5':
-    #         break
-    #     else:
-    #         print("Invalid operation!")
-            
-    #     print("\n\n")
     root = tk.Tk()
     app = RSA_GUI(root)
     root.mainloop()
