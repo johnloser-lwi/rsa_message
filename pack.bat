@@ -1,1 +1,3 @@
-pyinstaller -F rsa_message.py --clean --onefile
+copy rsa_message.py rsa_message.pyw
+pyinstaller --onefile rsa_message.pyw
+del rsa_message.pyw
