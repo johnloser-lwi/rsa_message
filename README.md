@@ -20,7 +20,6 @@ Before your start, generate a key pair by clicking `Generate Key Pair`
 - Copy the encrypted message to the clipboard
 - Click `Decrypt Message` and the decrypted message will be shown in the `TextBox`
 ## Build
-We only provide the Windows version. If you want to build for other platforms, you can build it yourself.
 ### Requirements
 - Python 3.x
 ### Scripts
