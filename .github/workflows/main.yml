@@ -1,0 +1,76 @@
+name: Build and Release Python Application
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+  pull_request:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # You can choose another OS if needed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Choose the Python version you need
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Replace with your actual dependency installation command
+
+      - name: Build for Windows
+        run: |
+          pyinstaller --onefile --name my-app-win your_script.py  # Replace with your actual PyInstaller command for Windows
+        shell: cmd
+
+      - name: Build for macOS
+        run: |
+          pyinstaller --onefile --name my-app-mac your_script.py  # Replace with your actual PyInstaller command for macOS
+        shell: bash
+
+      - name: Archive Windows artifact
+        run: |
+          zip -r my-app-win.zip dist/my-app-win
+          mv my-app-win.zip dist/
+        shell: bash
+
+      - name: Archive macOS artifact
+        run: |
+          zip -r my-app-mac.zip dist/my-app-mac
+          mv my-app-mac.zip dist/
+        shell: bash
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-app-artifacts
+          path: dist/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: my-app-artifacts
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
