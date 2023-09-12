@@ -50,15 +50,12 @@ jobs:
         with:
           name: rsa_message_artifacts
 
-      - name: Update Release Notes
-        run: |
-          RELEASE_NOTES=$(cat RELEASE.md)
-
       - name: Create release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             rsa_message.exe
+          body_path: ./RELEASE.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
