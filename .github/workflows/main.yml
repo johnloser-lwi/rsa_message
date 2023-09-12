@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x  # Choose the Python version you need
+          python-version: 3.10  # Choose the Python version you need
 
       - name: Install dependencies
         run: |
@@ -29,7 +29,6 @@ jobs:
       - name: Build for Windows
         run: |
           pyinstaller --onefile rsa_message.py  # Replace with your actual PyInstaller command for Windows
-        shell: cmd
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
