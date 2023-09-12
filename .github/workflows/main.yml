@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # You can choose another OS if needed
+    runs-on: windows-latest  # You can choose another OS if needed
 
     steps:
       - name: Checkout code
@@ -28,30 +28,19 @@ jobs:
 
       - name: Build for Windows
         run: |
-          pyinstaller --onefile --name my-app-win your_script.py  # Replace with your actual PyInstaller command for Windows
+          pyinstaller --onefile --name rsa_message_win rsa_message.py  # Replace with your actual PyInstaller command for Windows
         shell: cmd
-
-      - name: Build for macOS
-        run: |
-          pyinstaller --onefile --name my-app-mac your_script.py  # Replace with your actual PyInstaller command for macOS
-        shell: bash
 
       - name: Archive Windows artifact
         run: |
-          zip -r my-app-win.zip dist/my-app-win
-          mv my-app-win.zip dist/
-        shell: bash
-
-      - name: Archive macOS artifact
-        run: |
-          zip -r my-app-mac.zip dist/my-app-mac
-          mv my-app-mac.zip dist/
+          zip -r rsa_message_win.zip dist/rsa_message_win
+          mv rsa_message_win.zip dist/
         shell: bash
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: my-app-artifacts
+          name: rsa_message_artifacts
           path: dist/
 
   release:
@@ -65,7 +54,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: my-app-artifacts
+          name: rsa_message_artifacts
 
       - name: Create release
         id: create_release
