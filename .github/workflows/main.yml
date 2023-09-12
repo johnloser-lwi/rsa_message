@@ -55,7 +55,7 @@ jobs:
 
       - name: Build for Mac
         run: |
-          ./pack.sh
+          pyinstaller rsa_message.py --onefile --noconsole
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -81,7 +81,7 @@ jobs:
 
       - name: Build for Linux
         run: |
-          ./pack.sh
+          pyinstaller rsa_message.py --onefile --noconsole
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
