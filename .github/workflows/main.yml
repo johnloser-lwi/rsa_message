@@ -28,14 +28,8 @@ jobs:
 
       - name: Build for Windows
         run: |
-          pyinstaller --onefile --name rsa_message_win rsa_message.py  # Replace with your actual PyInstaller command for Windows
+          pyinstaller -F rsa_message.py --clean --onefile  # Replace with your actual PyInstaller command for Windows
         shell: cmd
-
-      - name: Archive Windows artifact
-        run: |
-          zip -r rsa_message_win.zip dist/
-          mv rsa_message_win.zip dist/
-        shell: bash
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
