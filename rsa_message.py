@@ -126,6 +126,13 @@ class rsa_message:
 
 class RSA_GUI:
     def __init__(self, root):
+        # start the window in center of screen
+        window_width = 530
+        window_height = 160
+        screen_width = root.winfo_screenwidth()
+        screen_height = root.winfo_screenheight()
+        root.geometry("%dx%d+%d+%d" % (window_width, window_height, (screen_width - window_width) / 2, (screen_height - window_height) / 2))
+
         self.root = root
         self.root.title("RSA Messenger")
         self.app = rsa_message()
