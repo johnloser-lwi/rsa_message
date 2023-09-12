@@ -56,12 +56,17 @@ jobs:
       - name: Build for Mac
         run: |
           pyinstaller rsa_message.py --onefile --noconsole
-
+      
+      - name: Archive artifacts
+        run: |
+          zip -r rsa_message_mac.zip dist/*
+        shell: bash
+      
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: rsa_message_artifacts_mac
-          path: dist/
+          path: rsa_message_mac.zip
 
   build-linux:
     runs-on: ubuntu-latest  # You can choose another OS if needed
@@ -83,11 +88,16 @@ jobs:
         run: |
           pyinstaller rsa_message.py --onefile --noconsole
 
+      - name: Archive artifacts
+        run: |
+          zip -r rsa_message_linux.zip dist/*
+        shell: bash
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: rsa_message_artifacts_linux
-          path: dist/
+          path: rsa_message_linux.zip
 
   release:
     needs: 
@@ -121,6 +131,8 @@ jobs:
         with:
           files: |
             rsa_message.exe
+            rsa_message_mac.zip
+            rsa_message_linux.zip
           body_path: ./RELEASE.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
