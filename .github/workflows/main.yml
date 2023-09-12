@@ -33,7 +33,7 @@ jobs:
 
       - name: Archive Windows artifact
         run: |
-          zip -r rsa_message_win.zip dist/rsa_message_win
+          zip -r rsa_message_win.zip dist/
           mv rsa_message_win.zip dist/
         shell: bash
 
