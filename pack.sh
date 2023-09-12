@@ -1,1 +1,1 @@
-pyinstaller -F rsa_message.py --clean --onefile
+pyinstaller rsa_message.py --onefile --noconsole
