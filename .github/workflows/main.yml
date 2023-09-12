@@ -28,7 +28,7 @@ jobs:
 
       - name: Build for Windows
         run: |
-          pyinstaller -F rsa_message.py --clean --onefile  # Replace with your actual PyInstaller command for Windows
+          pyinstaller --onefile rsa_message.py  # Replace with your actual PyInstaller command for Windows
         shell: cmd
 
       - name: Upload artifacts
