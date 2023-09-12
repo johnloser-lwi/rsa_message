@@ -1,9 +1,8 @@
-# v1.0.0
+# v1.0.1
 ## Improvements
-- Removed console window from the executable
-- Limited the number of characters in the text box for the encryption to work properly
-- Key file selection is now cached until the program is closed or reset button is pressed
+- Window will now start in the center of the screen and always on top
+- Window will now not be resizable
 ## Bug Fixes
-- Crashes when the key file is invalid
+None
 ## Known Issues
 None
