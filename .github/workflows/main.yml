@@ -2,11 +2,8 @@ name: Build and Release Python Application
 
 on:
   push:
-    branches:
-      - main  # Change this to your main branch name
-  pull_request:
-    branches:
-      - main  # Change this to your main branch name
+     tags: 
+       - '*'
   workflow_dispatch:
 
 jobs:
