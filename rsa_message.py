@@ -133,6 +133,12 @@ class RSA_GUI:
         screen_height = root.winfo_screenheight()
         root.geometry("%dx%d+%d+%d" % (window_width, window_height, (screen_width - window_width) / 2, (screen_height - window_height) / 2))
 
+        # window always on top
+        root.wm_attributes("-topmost", 1)
+
+        # window not resizable
+        root.resizable(False, False)
+
         self.root = root
         self.root.title("RSA Messenger")
         self.app = rsa_message()
