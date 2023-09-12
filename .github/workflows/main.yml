@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest  # You can choose another OS if needed
 
     steps:
@@ -34,21 +34,86 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: rsa_message_artifacts
+          name: rsa_message_artifacts_windows
+          path: dist/
+    
+  build-mac:
+    runs-on: macos-latest  # You can choose another OS if needed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10  # Choose the Python version you need
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Replace with your actual dependency installation command
+
+      - name: Build for Mac
+        run: |
+          ./pack.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: rsa_message_artifacts_mac
+          path: dist/
+
+  build-linux:
+    runs-on: ubuntu-latest  # You can choose another OS if needed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10  # Choose the Python version you need
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Replace with your actual dependency installation command
+
+      - name: Build for Linux
+        run: |
+          ./pack.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: rsa_message_artifacts_linux
           path: dist/
 
   release:
-    needs: build
+    needs: 
+      - build-windows
+      - build-mac
+      - build-linux
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download artifacts
+      - name: Download artifacts for Windows
         uses: actions/download-artifact@v2
         with:
-          name: rsa_message_artifacts
+          name: rsa_message_artifacts_windows
+      
+      - name: Download artifacts for Mac
+        uses: actions/download-artifact@v2
+        with:
+          name: rsa_message_artifacts_mac
+
+      - name: Download artifacts for Linux
+        uses: actions/download-artifact@v2
+        with:
+          name: rsa_message_artifacts_linux
 
       - name: Create release
         id: create_release
