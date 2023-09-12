@@ -1,5 +1,8 @@
 name: Build and Release Python Application
 
+permissions:
+  contents: write
+
 on:
   push:
      tags: 
